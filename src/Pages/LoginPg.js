@@ -35,7 +35,7 @@ const LoginPg = (props) => {
 				}
 			})
 			.catch((err) => {
-				console.log("Email: " + email.trim());
+				console.log("Email: " + email + "\n" + "Password:" + password);
 				makeToast("error", err.response.data.message);
 			});
 	};

@@ -26,7 +26,7 @@ const RegisterPg = (props) => {
 				props.history.push("/login");
 			})
 			.catch((err) => {
-				console.log("Name:" + name.trim(), "\n", "Email: " + email.trim());
+				console.log("Name: " + name + "\n" + "Email: " + email);
 				makeToast(err.response.data.icon, err.response.data.message);
 			});
 	};
