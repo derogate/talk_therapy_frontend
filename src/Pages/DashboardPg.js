@@ -25,17 +25,20 @@ function DashboardPg(props) {
 	const createRoom = () => {
 		const name = nameRef.current.value;
 
+		const config = {
+			headers: { Authorization: `Bearer ${localStorage.getItem("CHAT_TOKEN")}` }
+		};
+
 		axios
 			.post("http://localhost:4040/chatroom/", {
 				name,
-				Authorization: localStorage.getItem("CHAT_TOKEN"),
-			})
+			}, config)
 			.then((response) => {
 				makeToast(response.data.icon, response.data.message);
 			})
 			.catch((err) => {
 				console.log(err);
-				console.log(localStorage.getItem("CHAT_TOKEN"));
+				// console.log(localStorage.getItem("CHAT_TOKEN"));
 				makeToast(err.response.data.icon, err.response.data.message);
 			});
 	};
