@@ -12,7 +12,7 @@ function DashboardPg(props) {
 			.get("http://localhost:4040/chatroom", {
 				headers: {
 					Authorization: "Bearer " + localStorage.getItem("CHAT_TOKEN"),
-				},
+				}, // ||| token originate from .setItem() in src/Pages/LoginPg.js
 			})
 			.then((response) => {
 				setChatrooms(response.data);
@@ -26,13 +26,17 @@ function DashboardPg(props) {
 		const name = nameRef.current.value;
 
 		const config = {
-			headers: { Authorization: `Bearer ${localStorage.getItem("CHAT_TOKEN")}` }
+			headers: { Authorization: `Bearer ${localStorage.getItem("CHAT_TOKEN")}` },
 		};
 
 		axios
-			.post("http://localhost:4040/chatroom/", {
-				name,
-			}, config)
+			.post(
+				"http://localhost:4040/chatroom/",
+				{
+					name,
+				},
+				config
+			)
 			.then((response) => {
 				makeToast(response.data.icon, response.data.message);
 			})

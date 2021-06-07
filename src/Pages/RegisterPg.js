@@ -2,35 +2,39 @@ import React from "react";
 import axios from "axios";
 import makeToast from "../Toaster";
 
+// ||| this src/Pages/RegisterPg.js purpose are to render the registration page,
+// ||| connect with backend routes/user.js, which routes to
+// ||| the backend middlewares/auth.js first (MUST PASS IN ORDER next() TO EXECUTE) and then,
+// ||| it routes to and are managed by backend controllers/userController.js
 const RegisterPg = (props) => {
-	//React reference hooks
+	//declare createRef hooks variables
 	const nameRef = React.createRef();
 	const emailRef = React.createRef();
 	const passwordRef = React.createRef();
 
-	//declare React reference hooks to the current value of input fields
+	//assign createRef hooks variables to their respective current value of input fields
 	const registerUser = () => {
 		const name = nameRef.current.value;
 		const email = emailRef.current.value;
 		const password = passwordRef.current.value;
 
-		//connect frontend input fields with backend
+		//connect frontend input fields with backend controllers/userController.js via axios
 		axios
 			.post("http://localhost:4040/user/register", { name, email, password })
 			.then((response) => {
 				console.log(response.data);
-				console.log(response.data.message);
 				makeToast(response.data.icon, response.data.message);
 
 				//re-direct to login page via React-router-dom history.push function
 				props.history.push("/login");
 			})
 			.catch((err) => {
-				console.log("Name: " + name + "\n" + "Email: " + email);
+				console.log("Name: " + name + "\n" + "Email: " + email + "\n" + "Password: " + password);
 				makeToast(err.response.data.icon, err.response.data.message);
 			});
 	};
 
+	//re-direct to login page option if user already have account and want to login instead of registering
 	const loginUser = () => {
 		props.history.push("/login");
 	};

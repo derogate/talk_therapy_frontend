@@ -3,6 +3,9 @@ import React from "react";
 import { withRouter } from "react-router";
 import makeToast from "../Toaster";
 
+// ||| this src/Pages/LoginPg.js is used to to render the login page, connect with
+// ||| backend routes/user.js, which routes to backend middlewares/auth.js (MUST PASS for next() to occur),
+// ||| and then, it routes to and are managed by backend controllers/userController.js
 const LoginPg = (props) => {
 	//React reference hooks
 	const emailRef = React.createRef();
@@ -22,7 +25,7 @@ const LoginPg = (props) => {
 				if (response.data.icon === "success") {
 					makeToast(response.data.icon, response.data.message);
 
-					//save the token in localStorage
+					//! save the token in localStorage with .setItem(key,value)
 					localStorage.setItem("CHAT_TOKEN", response.data.token);
 
 					//re-direct to dashboard page via React-router-dom history.push function
@@ -35,11 +38,12 @@ const LoginPg = (props) => {
 				}
 			})
 			.catch((err) => {
-				console.log("Email: " + email + "\n" + "Password:" + password);
+				console.log("Email: " + email + "\n" + "Password: " + password);
 				makeToast("error", err.response.data.message);
 			});
 	};
 
+	// register option if user want to create another account instead of logging in
 	const createAccount = () => {
 		props.history.push("/register");
 	};

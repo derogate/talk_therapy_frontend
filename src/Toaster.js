@@ -1,5 +1,7 @@
 import Swal from "sweetalert2";
 
+// This src/Toaster.js is for custom pop-ups
+
 const Toast = Swal.mixin({
 	toast: true,
 	position: "top-end",
