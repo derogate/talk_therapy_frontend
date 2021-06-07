@@ -1,0 +1,123 @@
+* {
+	box-sizing: border-box;
+	color: #333;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+	font-size: 36px;
+}
+
+.card {
+	-webkit-box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.8);
+	box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.8);
+	border-radius: 5px;
+	padding: 2rem;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	width: 60vw;
+	transform: translate(-50%, -50%);
+	text-align: center;
+
+	/*
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+    */
+}
+.cardHeader {
+	background: hsl(45, 92%, 62%);
+	padding: 0.5rem 1.5rem;
+	border-radius: 5px;
+	text-transform: uppercase;
+	transform: skewY(-3deg);
+	font-size: 36px;
+	font-weight: bold;
+	position: absolute;
+	top: -1.5rem;
+	left: -1.75rem;
+}
+.cardBody {
+	margin-top: 1.5rem;
+}
+
+.inputGroup {
+	margin: 2rem;
+}
+label {
+	margin-right: 0.1rem;
+}
+input.nonChat {
+	border: none;
+	padding: 0.4rem;
+	width: 100%;
+	text-align: center;
+	outline: none;
+	font-size: 20px;
+	border-bottom: 2px solid #e0e0e0;
+	transition: border-bottom 0.3s;
+}
+input.nonChat:focus {
+	border-bottom: 2px solid lightslategray;
+}
+
+button.nonChat {
+	background: hsl(45, 100%, 68%);
+	border: none;
+	padding: 1rem;
+	font-size: 28px;
+	font-weight: bold;
+	border-radius: 2px;
+	text-transform: uppercase;
+	transition: background 0.25s, box-shadow 0.4s;
+}
+button.nonChat:hover {
+	background: hsl(45, 95%, 77%);
+	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.8);
+}
+
+.chatrooms {
+	margin-top: 1rem;
+}
+.chatroom {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 1rem;
+}
+
+.join {
+	background: #f7c52a;
+	padding: 0.25rem 0.5rem;
+	border-radius: 2px;
+	font-weight: normal;
+	font-size: 18px;
+}
+
+a {
+	text-decoration: none;
+	color: #333;
+}
+
+.chatroom_name {
+	font-size: 18px;
+}
+
+.create_forgot_container {
+}
+.login_forgot_container {
+}
+.createLoginForgotAccount {
+	font-size: 18px;
+	margin: 30px;
+	cursor: pointer;
+	text-decoration: underline transparent;
+	transition: text-decoration 0.2s, color 0.2s;
+}
+.createLoginForgotAccount:hover {
+	text-decoration: underline;
+	color: rgb(92, 24, 24);
+}

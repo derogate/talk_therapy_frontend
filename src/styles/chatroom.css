@@ -1,0 +1,130 @@
+/* THE WHOLE PAGE */
+.Page {
+	display: flex;
+	height: 100vh;
+	width: 100vw;
+	align-items: center;
+	flex-direction: column;
+	background-color: lightgrey;
+}
+
+/* The messages contents container */
+.Chat_History {
+	display: flex;
+	flex-direction: column;
+	height: 85vh;
+	width: 90vw;
+	background-color: white;
+	border-radius: 10px 10px;
+	padding-bottom: 10px;
+	margin-top: 25px;
+	overflow-x: hidden;
+	overflow-wrap: normal;
+	word-break: break-word;
+}
+::-webkit-scrollbar {
+	width: 10px;
+	transform: translateX(50px);
+}
+::-webkit-scrollbar-track {
+	background-color: #96c8f3;
+	border-radius: 0 10px 10px 0;
+}
+::-webkit-scrollbar-thumb {
+	background-color: #1a99e5;
+	border-radius: 0 10px 10px 0;
+}
+::-webkit-scrollbar-thumb:hover {
+	background-color: #1e88e5;
+}
+/* Form container (inclusive of ChatBox and Button) =============================================================*/
+.Form {
+	display: flex;
+	justify-content: space-between;
+	width: 90vw;
+	background-color: white;
+	border-radius: 25px;
+	border: 1px solid gray;
+	margin: 10px 0;
+	padding: 4px 0;
+}
+/* ChatBox to type message in */
+.ChatBox {
+	width: 100%;
+	border-radius: 25px;
+	border: none;
+	padding: 6px 20px;
+	font-size: 17px;
+	background-color: white;
+	outline: none;
+	color: black;
+	letter-spacing: 1px;
+	line-height: 20px;
+}
+.ChatBox::placeholder {
+	color: lightgray;
+}
+/* Button for submitting messages */
+.Button {
+	background-color: #1e88e5;
+	color: white;
+	width: 60px;
+	border: none;
+	border-radius: 25px;
+	font-size: 17px;
+	height: 33px;
+	margin-right: 6px;
+}
+.Button:hover {
+	background-color: #1e44e5;
+}
+
+/* YOUR OWN MESSAGE ONLY! ======================================================================================== */
+.MyRow {
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 10px;
+}
+.MyMessage {
+	width: fit-content;
+	background-color: #1e88e5;
+	color: white;
+	padding: 15px;
+	margin-left: 10px;
+	text-align: justify;
+	border-radius: 25px 0 0 25px;
+	animation: appearFromRight 0.2s ease-in-out forwards;
+}
+@keyframes appearFromRight {
+	0% {
+		transform: translateX(100%);
+	}
+	100% {
+		transform: translateX(0);
+	}
+}
+
+/* OTHER PEOPLE'S MESSAGES! ====================================================================================== */
+.PartnerRow {
+	justify-content: flex-start;
+}
+.PartnerMessage {
+	width: fit-content;
+	background-color: gray;
+	color: white;
+	border: 1px solid lightgray;
+	padding: 15px;
+	margin-right: 10px;
+	text-align: justify;
+	border-radius: 0 25px 25px 0;
+	animation: appearFromLeft 0.2s ease-in-out forwards;
+}
+@keyframes appearFromLeft {
+	0% {
+		transform: translateX(-100%);
+	}
+	100% {
+		transform: translateX(0);
+	}
+}
