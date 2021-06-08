@@ -63,7 +63,7 @@ const LoginPg = (props) => {
 			<div className="cardBody">
 				<div className="inputGroup">
 					<label htmlFor="email">Email </label>
-					<input className="nonChat" type="email" name="email" id="email" placeholder="abc@gmail.com" ref={emailRef} required />
+					<input className="nonChat" type="email" name="email" id="email" placeholder="example@gmail.com" ref={emailRef} required />
 				</div>
 				<div className="inputGroup">
 					<label htmlFor="password">Password </label>
