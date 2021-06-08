@@ -15,7 +15,8 @@ const IndexPg = (props) => {
 		} else {
 			props.history.push("/dashboard");
 		}
-	});
+		//eslint-disable-next-line
+	}, []);
 	return <div></div>;
 };
 

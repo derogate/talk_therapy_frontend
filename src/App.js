@@ -9,24 +9,31 @@ import io from "socket.io-client";
 import makeToast from "./Toaster";
 
 // ||| This src/App.js purpose is to manage url path (using src/Pages/"<url path>".js contents) & rendering or passing relevant component
-// This src/App.js purpose also to set up socket IF TOKEN EXISTS!
+//  !  This src/App.js purpose also to set up socket IF TOKEN EXISTS! via src/Pages/LoginPg.js!
 
 function App() {
-	// set useState
+	// set useState.
+	// ||| socket props below is used in src/App.js & src/Pages/ChatroomPg.js
+	// ||| setSocket props below is used here in src/App.js only
 	const [socket, setSocket] = React.useState(null);
 
-	// setting up new socket
+	// ||| setting up new socket. setupSocket is used here and in src/LoginPg.js
 	const setupSocket = () => {
 		const token = localStorage.getItem("CHAT_TOKEN");
 		// if localStorage token exist but NO SOCKET EXISTS, create new socket & combine it with that token
+
 		if (token && !socket) {
+			console.log(token && !socket);
 			const newSocket = io("http://localhost:4040", {
+				// ||| this is query.token used in backend server.js as query.handshake.query.token
 				query: {
 					token: localStorage.getItem("CHAT_TOKEN"),
 				},
 			});
+			console.log(newSocket);
 
-			newSocket.on("disconnect", () => {
+			newSocket.on("disconnect", (reason) => {
+				console.log(reason);
 				setSocket(null);
 				setTimeout(setupSocket, 3000);
 				makeToast("error", "Socket Disconnected!");
@@ -42,7 +49,8 @@ function App() {
 
 	React.useEffect(() => {
 		setupSocket();
-	});
+		//eslint-disable-next-line
+	}, []);
 
 	return (
 		<BrowserRouter>

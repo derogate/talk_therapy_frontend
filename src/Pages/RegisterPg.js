@@ -29,7 +29,7 @@ const RegisterPg = (props) => {
 				props.history.push("/login");
 			})
 			.catch((err) => {
-				console.log("Name: " + name + "\n" + "Email: " + email + "\n" + "Password: " + password);
+				console.log("Name: " + name, "\n", "Email: " + email, "\n", "Password: " + password);
 				makeToast(err.response.data.icon, err.response.data.message);
 			});
 	};

@@ -7,6 +7,7 @@ function DashboardPg(props) {
 	const nameRef = React.createRef();
 	const [chatrooms, setChatrooms] = React.useState([]);
 
+	// ||| getChatrooms() is executed from backend controllers/chatroomController.js
 	const getChatrooms = () => {
 		axios
 			.get("http://localhost:4040/chatroom", {
@@ -15,9 +16,10 @@ function DashboardPg(props) {
 				}, // ||| token originate from .setItem() in src/Pages/LoginPg.js
 			})
 			.then((response) => {
-				setChatrooms(response.data);
+				setChatrooms(response.data); //use res.json results from backend controllers/chatroomController.js
 			})
 			.catch((err) => {
+				setTimeout(getChatrooms, 3000);
 				console.log(err);
 			});
 	};
@@ -38,18 +40,23 @@ function DashboardPg(props) {
 				config
 			)
 			.then((response) => {
+				getChatrooms();
+				nameRef.current.value = "";
+
 				makeToast(response.data.icon, response.data.message);
 			})
 			.catch((err) => {
 				console.log(err);
-				// console.log(localStorage.getItem("CHAT_TOKEN"));
+
 				makeToast(err.response.data.icon, err.response.data.message);
 			});
 	};
 
+	// ||| getChatrooms() is executed from backend controllers/chatroomController.js
 	React.useEffect(() => {
 		getChatrooms();
-	});
+		//eslint-disable-next-line
+	}, []);
 
 	return (
 		<div className="card">
@@ -62,7 +69,7 @@ function DashboardPg(props) {
 			</div>
 
 			<button className="nonChat" onClick={createRoom}>
-				Create & join
+				Create room
 			</button>
 			<div className="chatrooms">
 				{chatrooms.map((chatroom) => (

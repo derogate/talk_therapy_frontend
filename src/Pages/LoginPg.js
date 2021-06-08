@@ -12,12 +12,12 @@ const LoginPg = (props) => {
 	const passwordRef = React.createRef();
 
 	// declare React reference hooks to the current value of input fields
-	const loginUser = async () => {
+	const loginUser = () => {
 		const email = emailRef.current.value;
 		const password = passwordRef.current.value;
 
 		// connect frontend input fields with backend
-		await axios
+		axios
 			.post("http://localhost:4040/user/login", { email, password })
 			.then((response) => {
 				if (response.data.icon === "success") {

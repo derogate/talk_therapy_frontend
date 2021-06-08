@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import { withRouter } from "react-router";
 
 const ChatroomPg = ({ match, socket }) => {
+	// ||| socket props passed above is imported and managed via backend server.js
 	/*
-	||| socket props passed above is imported and managed via backend server.js
 	??? TESTING: to check what is given by the props passed to the function which is match (react-router's object)
 	console.log(match);
 	console.log(match.params);
@@ -11,7 +11,7 @@ const ChatroomPg = ({ match, socket }) => {
 	*/
 	//declare the id for the routes url path in app.js (using react-router's match object which contains params)
 	//chatroomID is a unique identifier for that specific chatroom & are saved to mongoDB for socket.io query
-	//chatroomId is NOT bound to userId! chatroomId !== userId!
+	//chatroomId is NOT bound to userId! chatroomId is NOT userId!
 	const chatroomId = match.params.id;
 
 	//set useState and useRef
@@ -20,12 +20,10 @@ const ChatroomPg = ({ match, socket }) => {
 	const messageRef = React.useRef();
 
 	//sending msg to chatroom
-	const sendmessage = () => {
-		console.log(messageRef.current.value);
-
+	const sendMessage = () => {
 		if (socket) {
 			if (messageRef.current.value.trim() === "") {
-				alert("empty");
+				messageRef.current.value = "";
 				return;
 			} else {
 				// ||| "chatroomMessage" event is managed by backend server.js (purpose: send message to that particular chatroom & save message to mongoDB)
@@ -33,13 +31,14 @@ const ChatroomPg = ({ match, socket }) => {
 					chatroomId,
 					message: messageRef.current.value,
 				});
+				console.log(messageRef.current.value);
 				//empty input value after emitting chatroomMessage
 				messageRef.current.value = "";
 			}
 		}
 	};
 
-	// handling userId via JWT token and organizing old messages and new message
+	// handling userId via JWT token and appending old messages and new message
 	React.useEffect(() => {
 		// ||| token originate from .setItem() in src/Pages/LoginPg.js
 		// get token
@@ -48,7 +47,7 @@ const ChatroomPg = ({ match, socket }) => {
 			// .split()[1] method to get the encoded payload at index [1], atob function to decode its base64 algorithm, finally, JSON.parse method to convert JSON object to JSON string
 			const payload = JSON.parse(atob(token.split(".")[1]));
 
-			//set userId by the id from the decocded token's payload
+			//set userId by the id from the decoded token's payload
 			setUserId(payload.id);
 			/*
 			??? TESTING: to check the stored localStorage token, the decoded payload and the user id information within the decoded payload
@@ -87,11 +86,24 @@ const ChatroomPg = ({ match, socket }) => {
 
 	return (
 		<div className="Page">
+			<div className="cardHeader">CHATROOM</div>
 			<div className="Chat_History ">
-				{messages.map((message, index) => {
-					<div key={index} className="message">
-						<span className={userId === message.userId ? "yourMessage" : "othersMessage"}>{message.name}: </span> {message.message}
-					</div>;
+				{messages.map((message, index) => (
+					<div className={userId === message.userId ? "MyMessage" : "PartnerMessage"} key={index}>
+						{message.name} : <span> {message.message}</span>
+					</div>
+				))}
+				{/*
+				{messages.map((message, index) => (
+					<div className={userId === message.userId ? "MyRow" : "PartnerRow"} key={index}>
+						<div className={userId === message.userId ? "MyMessage" : "PartnerMessage"} key={index}>
+							{message.name} : <span> {message.message}</span>
+						</div>
+					</div>
+				))}	
+				*/}
+				{/*  
+				{messages.map((message, index) => (
 					if (userId === message.userId) {
 						return (
 							<div className="MyRow" key={index}>
@@ -103,16 +115,16 @@ const ChatroomPg = ({ match, socket }) => {
 					}
 					return (
 						<div className="PartnerRow" key={index}>
-							<span className="PartnerMessage">
-								{message.name}: {message.message}
-							</span>
+							<span className="PartnerMessage">{message.name}:</span>
+							{message.message}
 						</div>
 					);
-				})}
+				))}
+				*/}
 			</div>
-			<div className="Form" onSubmit={sendmessage}>
+			<div className="Form" onSubmit={sendMessage}>
 				<input className="ChatBox" type="text" name="message" placeholder="Type your message" ref={messageRef} />
-				<button className="Button" onClick={sendmessage}>
+				<button className="Button" onClick={sendMessage}>
 					Send
 				</button>
 			</div>
