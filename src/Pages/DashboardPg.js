@@ -1,9 +1,10 @@
 import React from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import makeToast from "../Toaster";
 
-function DashboardPg(props) {
+const DashboardPg = (props) => {
+	const history = useHistory();
 	const nameRef = React.createRef();
 	const [chatrooms, setChatrooms] = React.useState([]);
 
@@ -52,6 +53,12 @@ function DashboardPg(props) {
 			});
 	};
 
+	const logout = () => {
+		// remove token from localStorage
+		localStorage.clear();
+		history.push("/login");
+	}
+
 	// ||| getChatrooms() is executed from backend controllers/chatroomController.js
 	React.useEffect(() => {
 		getChatrooms();
@@ -81,6 +88,9 @@ function DashboardPg(props) {
 					</div>
 				))}
 			</div>
+			<button className="nonChat" onClick={logout}>
+				logout
+			</button>
 		</div>
 	);
 }
