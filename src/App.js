@@ -12,12 +12,13 @@ import makeToast from "./Toaster";
 // This src/App.js purpose also to set up socket IF TOKEN EXISTS!
 
 function App() {
-	//set useState
+	// set useState
 	const [socket, setSocket] = React.useState(null);
 
+	// setting up new socket
 	const setupSocket = () => {
 		const token = localStorage.getItem("CHAT_TOKEN");
-		//if localStorage token exist but NO SOCKET EXISTS, create new socket & combine it with that token
+		// if localStorage token exist but NO SOCKET EXISTS, create new socket & combine it with that token
 		if (token && !socket) {
 			const newSocket = io("http://localhost:4040", {
 				query: {

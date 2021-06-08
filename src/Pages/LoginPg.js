@@ -7,30 +7,30 @@ import makeToast from "../Toaster";
 // ||| backend routes/user.js, which routes to backend middlewares/auth.js (MUST PASS for next() to occur),
 // ||| and then, it routes to and are managed by backend controllers/userController.js
 const LoginPg = (props) => {
-	//React reference hooks
+	// set React reference hooks
 	const emailRef = React.createRef();
 	const passwordRef = React.createRef();
 
-	//declare React reference hooks to the current value of input fields
-	const loginUser = () => {
+	// declare React reference hooks to the current value of input fields
+	const loginUser = async () => {
 		const email = emailRef.current.value;
 		const password = passwordRef.current.value;
 
-		//connect frontend input fields with backend
-		axios
+		// connect frontend input fields with backend
+		await axios
 			.post("http://localhost:4040/user/login", { email, password })
 			.then((response) => {
-				console.log(response.data.message);
-
 				if (response.data.icon === "success") {
 					makeToast(response.data.icon, response.data.message);
 
 					//! save the token in localStorage with .setItem(key,value)
 					localStorage.setItem("CHAT_TOKEN", response.data.token);
+					console.log(`Saved localStorage "CHAT_TOKEN" value is ${localStorage.getItem("CHAT_TOKEN")}`);
 
-					//re-direct to dashboard page via React-router-dom history.push function
+					// re-direct to dashboard page via React-router-dom history.push function
 					props.history.push("/dashboard");
 
+					// ||| setting up socket using setupSocket function declared in frontend src/App.js
 					props.setupSocket();
 				} else {
 					makeToast(response.data.icon, response.data.message);
@@ -38,8 +38,17 @@ const LoginPg = (props) => {
 				}
 			})
 			.catch((err) => {
-				console.log("Email: " + email + "\n" + "Password: " + password);
-				makeToast("error", err.response.data.message);
+				/*
+				??? TESTING: to check the error details and its contents when axios encountered error
+				console.log(err); //default error in catch() block is Internal Server Error even though it might not be related to server being down
+				console.log(err.response);
+				console.log(err.response.data);
+				console.log(err.response.data.message);
+				console.log(err.response.data.stack); //this is the most useful data compared to previous four err above
+				*/
+				console.log(err.response.data.message);
+				console.log("err.response.data.stack is " + err.response.data.stack);
+				makeToast(err.response.data.icon, err.response.data.message);
 			});
 	};
 
