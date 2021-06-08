@@ -8,14 +8,18 @@ import RegisterPg from "./Pages/RegisterPg";
 import io from "socket.io-client";
 import makeToast from "./Toaster";
 
+// ||| This src/App.js purpose is to manage url path (using src/Pages/"<url path>".js contents) & rendering or passing relevant component
+// This src/App.js purpose also to set up socket IF TOKEN EXISTS!
+
 function App() {
+	// set useState
 	const [socket, setSocket] = React.useState(null);
 
+	// setting up new socket
 	const setupSocket = () => {
 		const token = localStorage.getItem("CHAT_TOKEN");
-		//if token exist but not socket, create new socket
+		// if localStorage token exist but NO SOCKET EXISTS, create new socket & combine it with that token
 		if (token && !socket) {
-			//create socket
 			const newSocket = io("http://localhost:4040", {
 				query: {
 					token: localStorage.getItem("CHAT_TOKEN"),

@@ -1,10 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
 import { withRouter } from "react-router";
 
-//! React App  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 const ChatroomPg = ({ match, socket }) => {
-	//declare the id for the routes url path in app.js
+	/*
+	||| socket props passed above is imported and managed via backend server.js
+	??? TESTING: to check what is given by the props passed to the function which is match (react-router's object)
+	console.log(match);
+	console.log(match.params);
+	console.log(match.params.id);
+	*/
+	//declare the id for the routes url path in app.js (using react-router's match object which contains params)
+	//chatroomID is a unique identifier for that specific chatroom & are saved to mongoDB for socket.io query
+	//chatroomId is NOT bound to userId! chatroomId !== userId!
 	const chatroomId = match.params.id;
 
 	//set useState and useRef
@@ -15,10 +22,13 @@ const ChatroomPg = ({ match, socket }) => {
 	//sending msg to chatroom
 	const sendmessage = () => {
 		console.log(messageRef.current.value);
+
 		if (socket) {
 			if (messageRef.current.value.trim() === "") {
+				alert("empty");
 				return;
 			} else {
+				// ||| "chatroomMessage" event is managed by backend server.js (purpose: send message to that particular chatroom & save message to mongoDB)
 				socket.emit("chatroomMessage", {
 					chatroomId,
 					message: messageRef.current.value,
@@ -29,20 +39,28 @@ const ChatroomPg = ({ match, socket }) => {
 		}
 	};
 
-	//handling userId via JWT token and organizing old messages and new message
+	// handling userId via JWT token and organizing old messages and new message
 	React.useEffect(() => {
-		//get token
+		// ||| token originate from .setItem() in src/Pages/LoginPg.js
+		// get token
 		const token = localStorage.getItem("CHAT_TOKEN");
 		if (token) {
-			//use JSON.parse method and atob function to decode base64 of token to normal string
+			// .split()[1] method to get the encoded payload at index [1], atob function to decode its base64 algorithm, finally, JSON.parse method to convert JSON object to JSON string
 			const payload = JSON.parse(atob(token.split(".")[1]));
 
-			//set userId by the id from the token's payload
+			//set userId by the id from the decocded token's payload
 			setUserId(payload.id);
+			/*
+			??? TESTING: to check the stored localStorage token, the decoded payload and the user id information within the decoded payload
+			console.log(token);
+			console.log(payload);
+			console.log(payload.id);
+			*/
 		}
 
 		//receiving new message and combining it into an array
 		if (socket) {
+			// ||| "newMessage" event originates from backend server.js
 			socket.on("newMessage", (message) => {
 				const newMessages = [...messages, message];
 				setMessages(newMessages);
@@ -54,11 +72,13 @@ const ChatroomPg = ({ match, socket }) => {
 	//joinRoom and leaveRoom
 	React.useEffect(() => {
 		if (socket) {
+			// ||| related to "joinRoom" event in backend server.js
 			socket.emit("joinRoom", { chatroomId });
 		}
 		return () => {
 			//UNMOUNTING COMPONENT!
 			if (socket) {
+				// ||| related to "leaveRoom" event in backend server.js
 				socket.emit("leaveRoom", { chatroomId });
 			}
 		};
