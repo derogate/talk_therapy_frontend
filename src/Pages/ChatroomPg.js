@@ -89,20 +89,19 @@ const ChatroomPg = ({ match, socket }) => {
 			<div className="cardHeader">CHATROOM</div>
 			<div className="Chat_History ">
 				{messages.map((message, index) => (
-					<div className={userId === message.userId ? "MyMessage" : "PartnerMessage"} key={index}>
-						{message.name} : <span> {message.message}</span>
-					</div>
-				))}
-				{/*
-				{messages.map((message, index) => (
 					<div className={userId === message.userId ? "MyRow" : "PartnerRow"} key={index}>
 						<div className={userId === message.userId ? "MyMessage" : "PartnerMessage"} key={index}>
 							{message.name} : <span> {message.message}</span>
 						</div>
 					</div>
-				))}	
-				*/}
-				{/*  
+				))}
+				{/* 
+				{messages.map((message, index) => (
+					<div className={userId === message.userId ? "MyMessage" : "PartnerMessage"} key={index}>
+						{message.name} : <span> {message.message}</span>
+					</div>
+				))}
+				{/*
 				{messages.map((message, index) => (
 					if (userId === message.userId) {
 						return (
