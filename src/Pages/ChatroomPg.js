@@ -23,9 +23,11 @@ const ChatroomPg = ({ match, socket }) => {
 	const sendMessage = () => {
 		if (socket) {
 			if (messageRef.current.value.trim() === "") {
+				console.log("[ChatroomPg.js empty input] Is socket connected? " + socket.connected);
 				messageRef.current.value = "";
 				return;
 			} else {
+				console.log("[ChatroomPg.js input not empty] Is socket connected? " + socket.connected);
 				// ||| "chatroomMessage" event is managed by backend server.js (purpose: send message to that particular chatroom & save message to mongoDB)
 				socket.emit("chatroomMessage", {
 					chatroomId,
@@ -63,6 +65,7 @@ const ChatroomPg = ({ match, socket }) => {
 			socket.on("newMessage", (message) => {
 				const newMessages = [...messages, message];
 				setMessages(newMessages);
+				console.log("[ChatroomPg.js someone emit newMessage] Is socket connected? " + socket.connected);
 			});
 		}
 		//eslint-disable-next-line

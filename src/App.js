@@ -23,23 +23,25 @@ function App() {
 		// if localStorage token exist but NO SOCKET EXISTS, create new socket & combine it with that token
 
 		if (token && !socket) {
-			console.log(token && !socket);
 			const newSocket = io("http://localhost:4040", {
 				// ||| this is query.token used in backend server.js as query.handshake.query.token
 				query: {
 					token: localStorage.getItem("CHAT_TOKEN"),
 				},
 			});
-			console.log(newSocket);
+			newSocket.connect();
+			console.log("[frontend src/App.js io(url,{query:{token:value}})] is newSocket connected?: " + newSocket.connected);
 
 			newSocket.on("disconnect", (reason) => {
-				console.log(reason);
+				console.log("[frontend src/App.js connect] is newSocket connected?: " + newSocket.connected);
+				console.log("Disconnect reason: " + reason);
 				setSocket(null);
 				setTimeout(setupSocket, 3000);
 				makeToast("error", "Socket Disconnected!");
 			});
 
 			newSocket.on("connect", () => {
+				console.log("[frontend src/App.js connect] is newSocket connected?: " + newSocket.connected);
 				makeToast("success", "Socket Connected!");
 			});
 
