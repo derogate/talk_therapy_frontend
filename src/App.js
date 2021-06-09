@@ -30,10 +30,8 @@ function App() {
 				},
 			});
 			newSocket.connect();
-			console.log("[frontend src/App.js io(url,{query:{token:value}})] is newSocket connected?: " + newSocket.connected);
 
 			newSocket.on("disconnect", (reason) => {
-				console.log("[frontend src/App.js connect] is newSocket connected?: " + newSocket.connected);
 				console.log("Disconnect reason: " + reason);
 				setSocket(null);
 				setTimeout(setupSocket, 3000);
@@ -41,7 +39,6 @@ function App() {
 			});
 
 			newSocket.on("connect", () => {
-				console.log("[frontend src/App.js connect] is newSocket connected?: " + newSocket.connected);
 				makeToast("success", "Socket Connected!");
 			});
 
