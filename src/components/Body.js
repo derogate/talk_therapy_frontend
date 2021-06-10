@@ -5,7 +5,6 @@ import BodyQA from "./BodyQA";
 import Card from "./Card";
 
 import logo from "../assets/img/yoga.svg";
-import styles from "./Body.module.scss";
 
 const Body = () => {
   return (
@@ -20,8 +19,13 @@ const Body = () => {
             Welcome to <span className="text-primary">Talk Therapy!</span>
           </h1>
           <p className="text-secondary">Here for you. Always.</p>
-          <button type="button" className="btn btn-primary text-white btn-lg">
-            Chat Now
+          <button type="button" className="btn btn-primary btn-lg">
+            <a
+              className="text-white text-decoration-none"
+              href="http://localhost:3000/login"
+            >
+              Chat Now
+            </a>
           </button>
         </div>
         <div>
