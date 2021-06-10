@@ -8,7 +8,9 @@ const DashboardPg = (props) => {
 	const nameRef = React.createRef();
 	const [chatrooms, setChatrooms] = React.useState([]);
 
-	// ||| getChatrooms() is executed from backend controllers/chatroomController.js
+	// ||| getChatrooms() is executed here but re-directed
+	// ||| to backend app.js --> routes/chatroom.js --> middlewares/auth.js --> controllers/chatroomController.js -->
+	// ||| response.data received changes the state of [setChatrooms] to [chatrooms] --> finally, used in rendering below!
 	const getChatrooms = () => {
 		axios
 			.get("http://localhost:4040/chatroom", {
@@ -24,6 +26,11 @@ const DashboardPg = (props) => {
 				console.log(err);
 			});
 	};
+
+	React.useEffect(() => {
+		getChatrooms();
+		//eslint-disable-next-line
+	}, []);
 
 	const createRoom = () => {
 		const name = nameRef.current.value;
@@ -47,8 +54,6 @@ const DashboardPg = (props) => {
 				makeToast(response.data.icon, response.data.message);
 			})
 			.catch((err) => {
-				console.log(err);
-
 				makeToast(err.response.data.icon, err.response.data.message);
 			});
 	};
@@ -57,13 +62,7 @@ const DashboardPg = (props) => {
 		// remove token from localStorage
 		localStorage.clear();
 		history.push("/login");
-	}
-
-	// ||| getChatrooms() is executed from backend controllers/chatroomController.js
-	React.useEffect(() => {
-		getChatrooms();
-		//eslint-disable-next-line
-	}, []);
+	};
 
 	return (
 		<div className="card">
@@ -93,6 +92,6 @@ const DashboardPg = (props) => {
 			</button>
 		</div>
 	);
-}
+};
 
 export default DashboardPg;
