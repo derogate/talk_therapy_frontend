@@ -15,7 +15,7 @@ const Header = () => {
           Talk Therapy
         </a>
         <button
-          className="navbar-toggler"
+          className="navbar-toggler bg-secondary"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarsExample04"
@@ -26,8 +26,11 @@ const Header = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div className="collapse navbar-collapse" id="navbarsExample04">
-          <ul className="navbar-nav me-auto mb-2 mb-md-0">
+        <div
+          className="collapse navbar-collapse justify-content-end"
+          id="navbarsExample04"
+        >
+          <ul className="navbar-nav mb-2 mb-md-0">
             <li>
               <a
                 href="#"
@@ -42,14 +45,6 @@ const Header = () => {
                 className={cx("nav-link px-2 link-dark", styles.headerLink)}
               >
                 Chat
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className={cx("nav-link px-2 link-dark", styles.headerLink)}
-              >
-                About Us
               </a>
             </li>
           </ul>
