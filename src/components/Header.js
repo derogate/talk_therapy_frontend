@@ -38,7 +38,7 @@ const Header = () => {
             </li>
             <li>
               <a
-                href="#"
+                href="http://localhost:3000/login"
                 className={cx("nav-link px-2 link-dark", styles.headerLink)}
               >
                 Chat
