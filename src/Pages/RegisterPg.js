@@ -49,7 +49,7 @@ const RegisterPg = (props) => {
     <div className="container">
       <div className="cardHeader">Register</div>
       <div className="cardBody">
-        <div className="inputGroup">
+        <div className="inputGroup p-3">
           <label htmlFor="name">Name</label>
           <input
             className="nonChat"
@@ -61,7 +61,7 @@ const RegisterPg = (props) => {
             required
           />
         </div>
-        <div className="inputGroup">
+        <div className="inputGroup p-3">
           <label htmlFor="email">Email</label>
           <input
             className="nonChat"
@@ -73,7 +73,7 @@ const RegisterPg = (props) => {
             required
           />
         </div>
-        <div className="inputGroup">
+        <div className="inputGroup p-4">
           <label htmlFor="password">Password</label>
           <input
             className="nonChat"

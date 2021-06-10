@@ -65,7 +65,7 @@ const LoginPg = (props) => {
     <div className="container">
       <div className="cardHeader">Login</div>
       <div className="cardBody">
-        <div className="inputGroup">
+        <div className="inputGroup p-4">
           <label htmlFor="email">Email </label>
           <input
             className="nonChat"
@@ -77,7 +77,7 @@ const LoginPg = (props) => {
             required
           />
         </div>
-        <div className="inputGroup">
+        <div className="inputGroup pt-1 pb-4">
           <label htmlFor="password">Password </label>
           <input
             className="nonChat"
