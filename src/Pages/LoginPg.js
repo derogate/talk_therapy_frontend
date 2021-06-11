@@ -126,17 +126,6 @@ const LoginPg = (props) => {
           </div>
         </div>
       </div>
-      <button className="nonChat" onClick={loginUser}>
-        Sign In
-      </button>
-      <div className="create_forgot_container">
-        <div className="createLoginForgotAccount" onClick={createAccount}>
-          Create Account
-        </div>
-        <div className="goHome" onClick={goHome}>
-          Homepage
-        </div>
-      </div>
     </div>
   );
 };
