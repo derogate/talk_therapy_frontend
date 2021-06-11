@@ -8,15 +8,37 @@
   background-color: lightgrey;
 }
 
+.Header {
+  display: flex;
+  margin: auto 0;
+}
 .chatroomHeader {
   padding: 0 2rem;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
-  color: white;
-  background-color: #1e88e5;
+  color: #1e88e5;
+  background-color: #d4ebff;
+  border: 1px solid #1e88e5;
   border-radius: 25px;
+  margin-right: 5px;
 }
-
+.leave {
+  background-color: #1e88e5;
+  color: white;
+  width: 60px;
+  border: 1px solid black;
+  border-radius: 25px;
+  font-size: 17px;
+  height: 33px;
+  transition: background-color 0.25s, border 0.25s, color 0.25s,
+    font-weight 0.25s;
+}
+.leave:hover {
+  background-color: white;
+  color: red;
+  border: 1px solid red;
+  font-weight: bold;
+}
 /* The messages contents container */
 .Chat_History {
   display: flex;
@@ -83,6 +105,7 @@
   font-size: 17px;
   height: 33px;
   margin-right: 6px;
+  transition: background-color 0.25s;
 }
 .Button:hover {
   background-color: #1e44e5;
@@ -161,5 +184,32 @@
   }
   100% {
     transform: translateX(0);
+  }
+}
+
+@media (max-width: 750px) {
+  .chatroomHeader {
+    font-size: 14px;
+    padding: 0 2rem;
+    height: 25px;
+  }
+  .leave {
+    font-size: 14px;
+    width: 60px;
+    font-size: 14px;
+    height: 25px;
+  }
+}
+
+@media (max-width: 470px) {
+  .chatroomHeader {
+    padding: 0 0.5rem;
+    height: 43px;
+    width: 200px;
+    text-align: center;
+    margin: 0;
+  }
+  .leave {
+    margin: auto 0;
   }
 }

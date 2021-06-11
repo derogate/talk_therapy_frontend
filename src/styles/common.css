@@ -102,14 +102,14 @@ button.nonChat.logOut:hover {
   border: 1px solid black;
   padding: 0px 20px 20px 20px;
   margin: 1rem auto 1rem auto;
+  width: 70%;
   height: 300px;
   overflow-y: auto;
 }
 .chatroomName_Join {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin: 0.5rem 0 0.5rem 0;
+  margin: 1rem 0;
 }
 
 .joinLink {
@@ -126,6 +126,7 @@ button.nonChat.logOut:hover {
   transition: background 0.25s, color 0.3s, border 0.3s, box-shadow 0.4s,
     transform 0.25s;
 }
+
 .join:hover {
   background: white;
   color: black;
@@ -138,20 +139,27 @@ button.nonChat.logOut:hover {
 
 .chatroom_name {
   font-size: 18px;
+  margin: 0 0 0 20px;
 }
 
 .create_forgot_container {
+  display: flex;
+  justify-content: space-around;
 }
+/*
 .login_forgot_container {
 }
-.createLoginForgotAccount {
+*/
+.createLoginForgotAccount,
+.goHome {
   font-size: 18px;
   margin: 30px;
   cursor: pointer;
   text-decoration: underline transparent;
   transition: text-decoration 0.2s, color 0.2s;
 }
-.createLoginForgotAccount:hover {
+.createLoginForgotAccount:hover,
+.goHome:hover {
   text-decoration: underline;
   color: rgb(92, 24, 24);
 }
@@ -163,5 +171,11 @@ button.nonChat.logOut:hover {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 768px) {
+  .chatroomList_container {
+    width: 100%;
   }
 }
