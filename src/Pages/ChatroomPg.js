@@ -1,5 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 const ChatroomPg = ({ match, socket }) => {
@@ -15,11 +16,12 @@ const ChatroomPg = ({ match, socket }) => {
   //chatroomId is NOT bound to userId! chatroomId is NOT userId!
   const chatroomId = match.params.id;
 
-  //set useState and useRef
+  //set useState, useRef and useHistory
   const [messages, setMessages] = React.useState([]);
   const [userId, setUserId] = React.useState("");
   const [chatroomHeader, setChatroomHeader] = React.useState([]);
   const messageRef = React.useRef();
+  const history = useHistory();
 
   //sending msg to chatroom =============================================================================================
   const sendMessage = () => {
@@ -122,21 +124,26 @@ const ChatroomPg = ({ match, socket }) => {
     //eslint-disable-next-line
   }, []);
 
+  const leaveChatroom = () => {
+    history.push("/dashboard");
+  };
+
   return (
     <div className="Page">
-      <div className="chatroomHeader">{chatroomHeader}</div>
+      <div className="Header">
+        <div className="chatroomHeader">{chatroomHeader}</div>
+        <button className="leave" onClick={leaveChatroom}>
+          Leave
+        </button>
+      </div>
       <div className="Chat_History ">
         {messages.map((message, index) => {
           return (
-            <div
-              className={userId === message.userId ? "MyRow" : "PartnerRow"}
-              key={index}
-            >
+            <div className={userId === message.userId ? "MyRow" : "PartnerRow"}>
               <div
                 className={
                   userId === message.userId ? "MyMessage" : "PartnerMessage"
                 }
-                key={index}
               >
                 <span
                   className={

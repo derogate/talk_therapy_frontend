@@ -89,10 +89,10 @@ const DashboardPg = (props) => {
       <div className="chatroomList_container">
         {chatrooms.map((chatroom) => (
           <div key={chatroom._id} className="chatroomName_Join">
-            <div className="chatroom_name">{chatroom.name}</div>
             <Link to={"/chatroom/" + chatroom._id} className="joinLink">
               <div className="join">Join</div>
             </Link>
+            <div className="chatroom_name">{chatroom.name}</div>
           </div>
         ))}
       </div>

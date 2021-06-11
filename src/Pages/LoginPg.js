@@ -61,6 +61,11 @@ const LoginPg = (props) => {
     props.history.push("/register");
   };
 
+  // homepage option is user want to do some sightseeing in homepage
+  const goHome = () => {
+    props.history.push("/");
+  };
+
   return (
     <div className="container">
       <div className="cardHeader">Login</div>
@@ -96,6 +101,9 @@ const LoginPg = (props) => {
       <div className="create_forgot_container">
         <div className="createLoginForgotAccount" onClick={createAccount}>
           Create Account
+        </div>
+        <div className="goHome" onClick={goHome}>
+          Homepage
         </div>
       </div>
     </div>
