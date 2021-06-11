@@ -2,6 +2,7 @@ import React from "react";
 import { withRouter } from "react-router";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
+import moment from "moment";
 
 const ChatroomPg = ({ match, socket }) => {
   // ||| socket props passed above is imported and managed via backend server.js
@@ -20,11 +21,13 @@ const ChatroomPg = ({ match, socket }) => {
   const [messages, setMessages] = React.useState([]);
   const [userId, setUserId] = React.useState("");
   const [chatroomHeader, setChatroomHeader] = React.useState([]);
+  const [timestamp, setTimestamp] = React.useState("");
   const messageRef = React.useRef();
   const history = useHistory();
 
   //sending msg to chatroom =============================================================================================
-  const sendMessage = () => {
+  const sendMessage = (e) => {
+    e.preventDefault(); //prevent default refreshing on submit
     if (socket) {
       if (messageRef.current.value.trim() === "") {
         messageRef.current.value = "";
@@ -65,15 +68,16 @@ const ChatroomPg = ({ match, socket }) => {
     //receiving new message and combining it into an array=============================================================
     if (socket) {
       // ||| "newMessage" event originates from backend server.js
-      socket.on("newMessage", (message) => {
+      socket.on("newMessage", (message, received_time) => {
         receivedMessage(message);
-        //! const newMessages = [...messages, message];
-        //! setMessages(newMessages); //messages to be mapped in line 140 below
+        setTimestamp(moment().format("DoMMMYYYY[\n]h:mmA"));
+        //setTimestamp(moment().calendar());
       });
     }
   }, []);
 
   function receivedMessage(message) {
+    // messages to be rendered (only message changes state ==> message rendered, oldMsgs remains as it is - not stateful)
     setMessages((oldMsgs) => [...oldMsgs, message]);
   }
 
@@ -152,6 +156,9 @@ const ChatroomPg = ({ match, socket }) => {
                   userId === message.userId ? "MyMessage" : "PartnerMessage"
                 }
               >
+                {userId === message.userId && (
+                  <span className="MyTimestamp">{timestamp}</span>
+                )}
                 <span
                   className={
                     userId === message.userId ? "MyNameTag" : "PartnerNameTag"
@@ -161,11 +168,14 @@ const ChatroomPg = ({ match, socket }) => {
                 </span>
                 {message.message}
               </div>
+              {userId !== message.userId && (
+                <span className="PartnerTimestamp">{timestamp}</span>
+              )}
             </div>
           );
         })}
       </div>
-      <div className="Form">
+      <form className="Form" onSubmit={sendMessage}>
         <input
           className="ChatBox"
           type="text"
@@ -176,7 +186,7 @@ const ChatroomPg = ({ match, socket }) => {
         <button className="Button" onClick={sendMessage}>
           Send
         </button>
-      </div>
+      </form>
     </div>
   );
 };
