@@ -1,9 +1,19 @@
 import React from "react";
 import cx from "classnames";
+import { useHistory } from "react-router-dom";
 
 import styles from "./Header.module.scss";
+import Button from "./Button";
 
-const Header = () => {
+const Header = ({ loggedIn }) => {
+  const history = useHistory();
+
+  const logout = () => {
+    // remove token from localStorage
+    localStorage.clear();
+    history.push("/");
+  };
+
   return (
     <nav
       className={cx(
@@ -11,7 +21,11 @@ const Header = () => {
       )}
     >
       <div className="container-fluid">
-        <a className="fw-bold navbar-brand" href="#">
+        <a
+          className="fw-bold navbar-brand"
+          href="#"
+          onClick={() => history.push("/")}
+        >
           Talk Therapy
         </a>
         <button
@@ -47,6 +61,16 @@ const Header = () => {
                 Chat
               </a>
             </li>
+            {loggedIn && (
+              <li>
+                <a
+                  onClick={() => logout()}
+                  className={cx("nav-link px-2 link-dark", styles.headerLink)}
+                >
+                  Logout
+                </a>
+              </li>
+            )}
           </ul>
         </div>
       </div>

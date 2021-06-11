@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import makeToast from "../Toaster";
 import Header from "../components/Header";
 import logo from "../assets/img/meditate.svg";
+import Button from "../components/Button";
 
 // ||| this src/Pages/RegisterPg.js purpose are to render the registration page,
 // ||| connect with backend routes/user.js, which routes to
 // ||| the backend middlewares/auth.js first (MUST PASS IN ORDER next() TO EXECUTE) and then,
 // ||| it routes to and are managed by backend controllers/userController.js
 const RegisterPg = (props) => {
+  const [isLoading, setLoading] = useState(false);
   //declare createRef hooks variables
   const nameRef = React.createRef();
   const emailRef = React.createRef();
@@ -16,18 +18,22 @@ const RegisterPg = (props) => {
 
   //assign createRef hooks variables to their respective current value of input fields
   const registerUser = () => {
+    setLoading(true);
     const name = nameRef.current.value;
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
     if (!nameRef.current.value) {
-      makeToast("Error", "Name required.");
+      makeToast("error", "Name required.");
+      setLoading(false);
     }
     if (!emailRef.current.value) {
-      makeToast("Error", "Email required.");
+      makeToast("error", "Email required.");
+      setLoading(false);
     }
     if (!passwordRef.current.value) {
-      makeToast("Error", "Password required.");
+      makeToast("error", "Password required.");
+      setLoading(false);
     }
 
     //connect frontend input fields with backend controllers/userController.js via axios
@@ -41,14 +47,10 @@ const RegisterPg = (props) => {
         props.history.push("/login");
       })
       .catch((err) => {
-        // console.log(
-        //   "Name: " + name,
-        //   "\n",
-        //   "Email: " + email,
-        //   "\n",
-        //   "Password: " + password
-        // );
-        // makeToast(err.response.data.icon, err.response.data.message);
+        if (err.response.status === 400) {
+          makeToast("error", "Registration Failed");
+        }
+        setLoading(false);
       });
   };
 
@@ -100,12 +102,13 @@ const RegisterPg = (props) => {
                 ref={passwordRef}
                 required
               />
-              <button
-                className="btn btn-primary text-white my-2"
+              <Button
+                isLoading={isLoading}
+                className="text-white my-2"
                 onClick={registerUser}
               >
                 Sign Up!
-              </button>
+              </Button>
               <a onClick={loginUser} className="text-center text-secondary">
                 I already have an account!
               </a>

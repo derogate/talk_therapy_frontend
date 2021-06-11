@@ -1,8 +1,9 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { withRouter } from "react-router";
 import makeToast from "../Toaster";
 import Header from "../components/Header";
+import Button from "../components/Button";
 
 import logo from "../assets/img/walking.svg";
 
@@ -10,20 +11,24 @@ import logo from "../assets/img/walking.svg";
 // ||| backend routes/user.js, which routes to backend middlewares/auth.js (MUST PASS for next() to occur),
 // ||| and then, it routes to and are managed by backend controllers/userController.js
 const LoginPg = (props) => {
+  const [isLoading, setLoading] = useState(false);
   // set React reference hooks
   const emailRef = React.createRef();
   const passwordRef = React.createRef();
 
   // declare React reference hooks to the current value of input fields
   const loginUser = () => {
+    setLoading(true);
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
     if (!emailRef.current.value) {
-      makeToast("Error", "Email required.");
+      makeToast("error", "Email required.");
+      setLoading(false);
     }
     if (!passwordRef.current.value) {
-      makeToast("Error", "Password required.");
+      makeToast("error", "Password required.");
+      setLoading(false);
     }
 
     // connect frontend input fields with backend
@@ -52,17 +57,11 @@ const LoginPg = (props) => {
         }
       })
       .catch((err) => {
-        /*
-				??? TESTING: to check the error details and its contents when axios encountered error
-				console.log(err); //default error in catch() block is Internal Server Error even though it might not be related to server being down
-				console.log(err.response);
-				console.log(err.response.data);
-				console.log(err.response.data.message);
-				console.log(err.response.data.stack); //this is the most useful data compared to previous four err above
-				*/
-        // console.log(err.response.data.message);
-        // console.log("err.response.data.stack is " + err.response.data.stack);
-        // makeToast(err.response.data.icon, err.response.data.message);
+        console.log(err.response.status);
+        if (err.response.status === 400) {
+          makeToast("error", "Login Failed");
+        }
+        setLoading(false);
       });
   };
 
@@ -105,18 +104,16 @@ const LoginPg = (props) => {
                 ref={passwordRef}
                 required
               />
-              <button
-                className="btn btn-primary text-white my-2"
+              <Button
+                isLoading={isLoading}
+                className="text-white my-2"
                 onClick={loginUser}
               >
                 Login
-              </button>
-              <button
-                className="btn btn-outline-secondary"
-                onClick={createAccount}
-              >
+              </Button>
+              <Button btnStyle="outline-secondary" onClick={createAccount}>
                 Register
-              </button>
+              </Button>
             </div>
           </div>
         </div>

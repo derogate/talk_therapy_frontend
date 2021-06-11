@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
 import makeToast from "../Toaster";
+import Header from "../components/Header";
+import moment from "moment";
+import ActionCard from "../components/ActionCard";
+import talkingImg from "../assets/img/talking.svg";
+import trackImg from "../assets/img/track.svg";
 
 const DashboardPg = (props) => {
   const history = useHistory();
@@ -27,7 +32,7 @@ const DashboardPg = (props) => {
       });
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     getChatrooms();
     //eslint-disable-next-line
   }, []);
@@ -63,42 +68,65 @@ const DashboardPg = (props) => {
   const logout = () => {
     // remove token from localStorage
     localStorage.clear();
-    history.push("/login");
+    history.push("/");
   };
 
   return (
-    <div className="container">
-      <div className="cardHeader">Chatrooms</div>
-      <div className="cardBody">
-        <div className="inputGroup">
-          <label htmlFor="name">Create new chatroom</label>
-          <input
-            className="nonChat"
-            type="text"
-            name="name"
-            id="name"
-            placeholder="Chatroom name"
-            ref={nameRef}
+    <div className="container-fluid">
+      <Header loggedIn />
+      <div className="container">
+        <div className="mb-5">
+          <h1>
+            Hello! Today is{" "}
+            <span className="text-primary">{moment().format("dddd")}!</span>
+          </h1>
+          <h2 className="text-secondary">What would you like to do today?</h2>
+        </div>
+
+        <div className="d-flex align-items-center justify-content-center flex-grow-0 flex-shrink-0">
+          <ActionCard
+            img={talkingImg}
+            label="Talk"
+            onClick={() => console.log("testing")}
+          />
+          <ActionCard
+            img={trackImg}
+            label="Track Mood"
+            onClick={() => console.log("testing")}
           />
         </div>
-      </div>
 
-      <button className="nonChat" onClick={createRoom}>
-        Create room
-      </button>
-      <div className="chatroomList_container">
-        {chatrooms.map((chatroom) => (
-          <div key={chatroom._id} className="chatroomName_Join">
-            <div className="chatroom_name">{chatroom.name}</div>
-            <Link to={"/chatroom/" + chatroom._id} className="joinLink">
-              <div className="join">Join</div>
-            </Link>
+        <div className="cardBody">
+          <div className="inputGroup">
+            <label htmlFor="name">Create new chatroom</label>
+            <input
+              className="nonChat"
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Chatroom name"
+              ref={nameRef}
+            />
           </div>
-        ))}
+        </div>
+
+        <button className="nonChat" onClick={createRoom}>
+          Create room
+        </button>
+        <div className="chatroomList_container">
+          {chatrooms.map((chatroom) => (
+            <div key={chatroom._id} className="chatroomName_Join">
+              <div className="chatroom_name">{chatroom.name}</div>
+              <Link to={"/chatroom/" + chatroom._id} className="joinLink">
+                <div className="join">Join</div>
+              </Link>
+            </div>
+          ))}
+        </div>
+        <button className="nonChat logOut mb-3" onClick={logout}>
+          logout
+        </button>
       </div>
-      <button className="nonChat logOut mb-3" onClick={logout}>
-        logout
-      </button>
     </div>
   );
 };
