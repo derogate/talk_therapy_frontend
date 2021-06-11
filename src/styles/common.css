@@ -32,27 +32,30 @@ a:hover {
 /*    *!*/
 /*}*/
 .cardHeader {
-  background: #1e88e5;
-  color: white;
-  padding: 0.5rem 1.5rem;
-  border-radius: 5px;
+  background: white;
+  color: #1e88e5;
+  padding: 0.5rem 2rem;
+  border: 1px #0088ff solid;
+  border-radius: 50%;
   text-transform: uppercase;
-  transform: skewY(-3deg);
+  transform: skewY(-5deg);
   font-size: 36px;
   font-weight: bold;
   position: absolute;
-  top: -1.5rem;
-  left: -1.75rem;
+  top: -2rem;
+  left: -2.5rem;
 }
 .cardBody {
   margin-top: 1.5rem;
 }
 
 .inputGroup {
-  margin: 2rem;
+  margin: 1rem 2rem 1rem 2rem;
 }
 label {
   margin-right: 0.1rem;
+  font-weight: bold;
+  font-size: 24px;
 }
 input.nonChat {
   border: none;
@@ -72,28 +75,41 @@ button.nonChat {
   background: #1e88e5;
   color: white;
   border: none;
-  padding: 0.5rem 1rem;
-  font-size: 28px;
+  padding: 0.2rem 1rem;
+  font-size: 24px;
   font-weight: bold;
-  border-radius: 2px;
+  border-radius: 10px;
   text-transform: uppercase;
-  transition: background 0.25s, box-shadow 0.4s;
+  transition: background 0.25s, box-shadow 0.4s, transform 0.25s;
 }
-button.nonChat:hover,
-.join:hover {
-  background: #1e88e5;
+button.nonChat:hover {
+  background: #0bb814;
   color: white;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.8);
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 1);
+  -webkit-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 1);
+  -moz-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 1);
+  transform: translateY(-6px);
+}
+button.nonChat.logOut:hover {
+  background: #ff0000;
+  box-shadow: 0px -5px 10px 0px rgba(0, 0, 0, 1);
+  -webkit-box-shadow: 0px -5px 10px 0px rgba(0, 0, 0, 1);
+  -moz-box-shadow: 0px -5px 10px 0px rgba(0, 0, 0, 1);
+  transform: translateY(6px);
 }
 
-.chatrooms {
-  margin-top: 1rem;
+.chatroomList_container {
+  border: 1px solid black;
+  padding: 0px 20px 20px 20px;
+  margin: 1rem auto 1rem auto;
+  height: 300px;
+  overflow-y: auto;
 }
-.chatroom {
+.chatroomName_Join {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+  margin: 0.5rem 0 0.5rem 0;
 }
 
 .joinLink {
@@ -102,11 +118,22 @@ button.nonChat:hover,
 .join {
   background: #1e88e5;
   color: white;
+  border: 1px black solid;
   padding: 0.25rem 0.5rem;
-  border-radius: 2px;
+  border-radius: 10px;
   font-weight: normal;
   font-size: 18px;
-  transition: background 0.25s, box-shadow 0.4s;
+  transition: background 0.25s, color 0.3s, border 0.3s, box-shadow 0.4s,
+    transform 0.25s;
+}
+.join:hover {
+  background: white;
+  color: black;
+  border: 1px green solid;
+  box-shadow: 5px 0px 10px 0px rgba(0, 0, 0, 1);
+  -webkit-box-shadow: 5px 0px 10px 0px rgba(0, 0, 0, 1);
+  -moz-box-shadow: 5px 0px 10px 0px rgba(0, 0, 0, 1);
+  transform: translatex(-5px);
 }
 
 .chatroom_name {
@@ -127,4 +154,14 @@ button.nonChat:hover,
 .createLoginForgotAccount:hover {
   text-decoration: underline;
   color: rgb(92, 24, 24);
+}
+
+@media (max-width: 940px) {
+  .cardHeader {
+    padding: 0rem 1.5rem;
+    transform: skewY(0);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }

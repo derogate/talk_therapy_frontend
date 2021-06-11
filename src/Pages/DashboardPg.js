@@ -86,9 +86,9 @@ const DashboardPg = (props) => {
       <button className="nonChat" onClick={createRoom}>
         Create room
       </button>
-      <div className="chatrooms">
+      <div className="chatroomList_container">
         {chatrooms.map((chatroom) => (
-          <div key={chatroom._id} className="chatroom">
+          <div key={chatroom._id} className="chatroomName_Join">
             <div className="chatroom_name">{chatroom.name}</div>
             <Link to={"/chatroom/" + chatroom._id} className="joinLink">
               <div className="join">Join</div>
@@ -96,7 +96,7 @@ const DashboardPg = (props) => {
           </div>
         ))}
       </div>
-      <button className="nonChat" onClick={logout}>
+      <button className="nonChat logOut mb-3" onClick={logout}>
         logout
       </button>
     </div>
