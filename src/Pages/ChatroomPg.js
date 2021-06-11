@@ -66,12 +66,16 @@ const ChatroomPg = ({ match, socket }) => {
     if (socket) {
       // ||| "newMessage" event originates from backend server.js
       socket.on("newMessage", (message) => {
-        const newMessages = [...messages, message];
-        setMessages(newMessages);
+        receivedMessage(message);
+        //! const newMessages = [...messages, message];
+        //! setMessages(newMessages); //messages to be mapped in line 140 below
       });
     }
-    //eslint-disable-next-line
-  }, [messages]);
+  }, []);
+
+  function receivedMessage(message) {
+    setMessages((oldMsgs) => [...oldMsgs, message]);
+  }
 
   //joinRoom and leaveRoom ===============================================================================================
   React.useEffect(() => {
@@ -139,7 +143,10 @@ const ChatroomPg = ({ match, socket }) => {
       <div className="Chat_History ">
         {messages.map((message, index) => {
           return (
-            <div className={userId === message.userId ? "MyRow" : "PartnerRow"}>
+            <div
+              className={userId === message.userId ? "MyRow" : "PartnerRow"}
+              key={index}
+            >
               <div
                 className={
                   userId === message.userId ? "MyMessage" : "PartnerMessage"
