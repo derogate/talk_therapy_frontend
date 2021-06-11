@@ -1,5 +1,13 @@
+@import "../styles/colors";
+
 .card {
   width: 200px;
   height: 200px;
   border-radius: 10px;
+  cursor: pointer;
+  border: 2px solid transparent !important;
+}
+
+.card:hover {
+  border: 2px solid $primary-color !important;
 }
