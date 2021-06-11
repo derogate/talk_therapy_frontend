@@ -2,6 +2,9 @@ import axios from "axios";
 import React from "react";
 import { withRouter } from "react-router";
 import makeToast from "../Toaster";
+import Header from "../components/Header";
+
+import logo from "../assets/img/walking.svg";
 
 // ||| this src/Pages/LoginPg.js is used to to render the login page, connect with
 // ||| backend routes/user.js, which routes to backend middlewares/auth.js (MUST PASS for next() to occur),
@@ -15,6 +18,13 @@ const LoginPg = (props) => {
   const loginUser = () => {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
+
+    if (!emailRef.current.value) {
+      makeToast("Error", "Email required.");
+    }
+    if (!passwordRef.current.value) {
+      makeToast("Error", "Password required.");
+    }
 
     // connect frontend input fields with backend
     axios
@@ -50,9 +60,9 @@ const LoginPg = (props) => {
 				console.log(err.response.data.message);
 				console.log(err.response.data.stack); //this is the most useful data compared to previous four err above
 				*/
-        console.log(err.response.data.message);
-        console.log("err.response.data.stack is " + err.response.data.stack);
-        makeToast(err.response.data.icon, err.response.data.message);
+        // console.log(err.response.data.message);
+        // console.log("err.response.data.stack is " + err.response.data.stack);
+        // makeToast(err.response.data.icon, err.response.data.message);
       });
   };
 
@@ -62,40 +72,53 @@ const LoginPg = (props) => {
   };
 
   return (
-    <div className="container">
-      <div className="cardHeader">Login</div>
-      <div className="cardBody">
-        <div className="inputGroup">
-          <label htmlFor="email">Email </label>
-          <input
-            className="nonChat"
-            type="email"
-            name="email"
-            id="email"
-            placeholder="example@gmail.com"
-            ref={emailRef}
-            required
-          />
-        </div>
-        <div className="inputGroup">
-          <label htmlFor="password">Password </label>
-          <input
-            className="nonChat"
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Your password"
-            ref={passwordRef}
-            required
-          />
-        </div>
-      </div>
-      <button className="nonChat" onClick={loginUser}>
-        Sign In
-      </button>
-      <div className="create_forgot_container">
-        <div className="createLoginForgotAccount" onClick={createAccount}>
-          Create Account
+    <div className="container-fluid">
+      <Header />
+      <div className="container d-flex align-items-center justify-content-around">
+        <div className="row">
+          <div className="col-sm d-flex align-items-center justify-content-center p-3">
+            <img
+              className="img-fluid"
+              src={logo}
+              width={300}
+              alt="cartoon lady walking"
+            />
+          </div>
+          <div className="col-sm d-flex align-items-center justify-content-center p-3">
+            <div className="d-flex flex-column">
+              <h1>Login</h1>
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="example@gmail.com"
+                ref={emailRef}
+                required
+              />
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="********"
+                ref={passwordRef}
+                required
+              />
+              <button
+                className="btn btn-primary text-white my-2"
+                onClick={loginUser}
+              >
+                Login
+              </button>
+              <button
+                className="btn btn-outline-secondary"
+                onClick={createAccount}
+              >
+                Register
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
