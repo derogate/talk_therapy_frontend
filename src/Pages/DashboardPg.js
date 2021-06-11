@@ -7,6 +7,7 @@ import moment from "moment";
 import ActionCard from "../components/ActionCard";
 import talkingImg from "../assets/img/talking.svg";
 import trackImg from "../assets/img/track.svg";
+import Button from "../components/Button";
 
 const DashboardPg = (props) => {
   const history = useHistory();
@@ -65,12 +66,6 @@ const DashboardPg = (props) => {
       });
   };
 
-  const logout = () => {
-    // remove token from localStorage
-    localStorage.clear();
-    history.push("/");
-  };
-
   return (
     <div className="container-fluid">
       <Header loggedIn />
@@ -78,41 +73,71 @@ const DashboardPg = (props) => {
         <div className="mb-5">
           <h1>
             Hello! Today is{" "}
-            <span className="text-primary">{moment().format("dddd")}!</span>
+            <span className="text-primary">{moment().format("dddd")}! </span>
+            The time is{" "}
+            <span className="text-primary">{moment().format("h:mma")}!</span>
           </h1>
-          <h2 className="text-secondary">What would you like to do today?</h2>
+          <h2 className="border-primary border-bottom pb-3">
+            What would you like to do{" "}
+            <span className="text-secondary">today?</span>
+          </h2>
         </div>
 
         <div className="d-flex align-items-center justify-content-center flex-grow-0 flex-shrink-0">
           <ActionCard
             img={talkingImg}
             label="Talk"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
             onClick={() => console.log("testing")}
           />
           <ActionCard
             img={trackImg}
             label="Track Mood"
-            onClick={() => console.log("testing")}
+            onClick={() => console.log("123")}
           />
         </div>
 
-        <div className="cardBody">
-          <div className="inputGroup">
-            <label htmlFor="name">Create new chatroom</label>
-            <input
-              className="nonChat"
-              type="text"
-              name="name"
-              id="name"
-              placeholder="Chatroom name"
-              ref={nameRef}
-            />
+        <div
+          className="modal fade"
+          id="exampleModal"
+          tabIndex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h3 className="modal-title" id="exampleModalLabel">
+                  Create new chatroom
+                </h3>
+              </div>
+              <div className="modal-body">
+                <input
+                  className="nonChat"
+                  type="text"
+                  name="name"
+                  id="name"
+                  placeholder="Chatroom name"
+                  ref={nameRef}
+                />
+              </div>
+              <div className="modal-footer">
+                <Button
+                  className="text-white fw-bold"
+                  btnStyle="secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </Button>
+                <Button className="text-white fw-bold" onClick={createRoom}>
+                  Create room
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
 
-        <button className="nonChat" onClick={createRoom}>
-          Create room
-        </button>
         <div className="chatroomList_container">
           {chatrooms.map((chatroom) => (
             <div key={chatroom._id} className="chatroomName_Join">
@@ -123,9 +148,6 @@ const DashboardPg = (props) => {
             </div>
           ))}
         </div>
-        <button className="nonChat logOut mb-3" onClick={logout}>
-          logout
-        </button>
       </div>
     </div>
   );
