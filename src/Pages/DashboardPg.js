@@ -100,12 +100,14 @@ const DashboardPg = (props) => {
             label="Talk"
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
-            onClick={() => console.log("testing")}
+            onClick={() => console.log("You wanted to create a new chatroom!")}
           />
           <ActionCard
             img={trackImg}
             label="Track Mood"
-            onClick={() => console.log("123")}
+            onClick={() =>
+              alert("This feature is currently under development.")
+            }
           />
         </div>
 
