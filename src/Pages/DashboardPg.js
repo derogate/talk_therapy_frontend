@@ -14,6 +14,16 @@ const DashboardPg = (props) => {
   const nameRef = React.createRef();
   const [chatrooms, setChatrooms] = React.useState([]);
 
+  React.useEffect(() => {
+    const token = localStorage.getItem("CHAT_TOKEN");
+    if (!token) {
+      history.push("/login");
+    } else {
+      history.push("/dashboard");
+    }
+    //eslint-disable-next-line
+  }, []);
+
   // ||| getChatrooms() is executed here but re-directed
   // ||| to backend app.js --> routes/chatroom.js --> middlewares/auth.js --> controllers/chatroomController.js -->
   // ||| response.data received changes the state of [setChatrooms] to [chatrooms] --> finally, used in rendering below!
@@ -29,7 +39,7 @@ const DashboardPg = (props) => {
         setTimeout(getChatrooms, 30000); //getchatrooms every 30 sec
       })
       .catch((err) => {
-        setTimeout(getChatrooms, 3000);
+        setTimeout(getChatrooms, 10000);
         console.log(err);
       });
   };

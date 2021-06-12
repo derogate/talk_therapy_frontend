@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { withRouter } from "react-router";
+import { useHistory } from "react-router-dom";
 import makeToast from "../Toaster";
 import Header from "../components/Header";
 import Button from "../components/Button";
@@ -11,10 +12,21 @@ import logo from "../assets/img/walking.svg";
 // ||| backend routes/user.js, which routes to backend middlewares/auth.js (MUST PASS for next() to occur),
 // ||| and then, it routes to and are managed by backend controllers/userController.js
 const LoginPg = (props) => {
-  const [isLoading, setLoading] = useState(false);
   // set React reference hooks
+  const [isLoading, setLoading] = useState(false);
   const emailRef = React.createRef();
   const passwordRef = React.createRef();
+  const history = useHistory();
+
+  React.useEffect(() => {
+    const token = localStorage.getItem("CHAT_TOKEN");
+    if (!token) {
+      history.push("/login");
+    } else {
+      history.push("/dashboard");
+    }
+    //eslint-disable-next-line
+  }, []);
 
   // declare React reference hooks to the current value of input fields
   const loginUser = () => {

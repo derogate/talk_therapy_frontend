@@ -99,7 +99,8 @@ button.nonChat.logOut:hover {
 }
 
 .chatroomList_container {
-  border: 1px solid gray;
+  border: 1px solid black;
+  border-radius: 25px;
   padding: 0px 20px 20px 20px;
   margin: 1rem auto 1rem auto;
   width: 70%;
@@ -178,5 +179,18 @@ button.nonChat.logOut:hover {
 @media (max-width: 768px) {
   .chatroomList_container {
     width: 100%;
+  }
+}
+
+@media (max-width: 590px) {
+  .chatroom_name {
+    font-size: 16px;
+  }
+  .join {
+    margin-left: 10px;
+    border: 1px black solid;
+    padding: 0.1rem 0.3rem;
+    border-radius: 10px;
+    font-size: 14px;
   }
 }
