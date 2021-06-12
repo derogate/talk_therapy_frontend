@@ -26,7 +26,7 @@ const Header = ({ loggedIn }) => {
           href="#"
           onClick={() => history.push("/")}
         >
-          Talk Therapy
+          Mindful.BN
         </a>
         <button
           className="navbar-toggler bg-secondary navbar-dark bg-danger bg-gradient"

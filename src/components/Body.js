@@ -16,7 +16,7 @@ const Body = () => {
       <div className="d-flex flex-row align-items-center justify-content-around pb-5 mb-3">
         <div>
           <h1 className="mb-0">
-            Welcome to <span className="text-primary">Talk Therapy!</span>
+            Welcome to <span className="text-primary">Mindful.BN</span>
           </h1>
           <p className="text-secondary">Here for you. Always.</p>
           <button type="button" className="btn btn-primary btn-lg">
@@ -39,24 +39,24 @@ const Body = () => {
       </div>
       <div className="d-flex flex-column border-secondary border-top text-center pt-5 p-md-5">
         <BodyQA className="mb-3" question="What is Mindful.BN?">
-          curhatiku is a platform to improve your mental health online via
-          community-based mental healthcare and recovery with the help of a
-          Bruneian mental health organization, mindful.BN.
+          <span className="text-primary">Mindful.BN</span> is a platform to
+          improve your mental health online via community-based mental
+          healthcare and recovery with the help of a Bruneian mental health
+          organization, <span className="text-primary">Mindful.BN</span>.
         </BodyQA>
         <BodyQA question="Why Mindful.BN?">
-          Our volunteers will listen to your problems and help provide support
+          Our counsellors will listen to your problems and help provide support
           online. <br />
-          Availability depends on our volunteers but you can set appointments at
-          a later date. <br />
           We respect your privacy, we value your anonymity and we maintain
           confidentiality at all times. <br />
           We are here to be with you and guide you on how to cope and manage
           your emotions and problems. <br />
-          In curhatiku, you have the freedom to express yourself in a safe zone
-          and we are ready to listen and provide support. <br />
+          In <span className="text-primary">Mindful.BN</span>, you have the
+          freedom to express yourself in a safe zone and we are ready to listen
+          and provide support. <br />
           If you feel alone and want to talk to someone, you are free to
-          register and start chatting (text or audio) with our trained
-          volunteers, with no fees required.
+          register and start chatting with our experienced counsellors, with no
+          fees required.
         </BodyQA>
         <BodyQA question="Disclaimer">
           <span className="text-primary">Mindful.BN</span> is not a substitute
