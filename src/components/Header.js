@@ -11,7 +11,7 @@ const Header = ({ loggedIn }) => {
   const logout = () => {
     // remove token from localStorage
     localStorage.clear();
-    history.push("/");
+    history.push("/login");
   };
 
   return (
@@ -29,7 +29,7 @@ const Header = ({ loggedIn }) => {
           Talk Therapy
         </a>
         <button
-          className="navbar-toggler bg-secondary"
+          className="navbar-toggler bg-secondary navbar-dark bg-danger bg-gradient"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarsExample04"
@@ -47,7 +47,7 @@ const Header = ({ loggedIn }) => {
           <ul className="navbar-nav mb-2 mb-md-0">
             <li>
               <a
-                href="#"
+                href="/"
                 className={cx("nav-link px-2 link-dark", styles.headerLink)}
               >
                 Home
