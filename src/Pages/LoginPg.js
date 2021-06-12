@@ -52,11 +52,7 @@ const LoginPg = (props) => {
 
           //! save the token in localStorage with .setItem(key,value)
           localStorage.setItem("CHAT_TOKEN", response.data.token);
-          console.log(
-            `Saved localStorage "CHAT_TOKEN" value is ${localStorage.getItem(
-              "CHAT_TOKEN"
-            )}`
-          );
+          console.log(`${localStorage.getItem("CHAT_TOKEN")}`);
 
           // ||| setting up socket using setupSocket function declared in frontend src/App.js
           props.setupSocket();
@@ -69,9 +65,9 @@ const LoginPg = (props) => {
         }
       })
       .catch((err) => {
-        console.log(err.response.status);
+        console.log(err.response.data.message);
         if (err.response.status === 400) {
-          makeToast("error", "Login Failed");
+          makeToast("warning", err.response.data.message);
         }
         setLoading(false);
       });

@@ -48,7 +48,7 @@ const RegisterPg = (props) => {
       })
       .catch((err) => {
         if (err.response.status === 400) {
-          makeToast("error", "Registration Failed");
+          makeToast("warning", err.response.data.message);
         }
         setLoading(false);
       });
