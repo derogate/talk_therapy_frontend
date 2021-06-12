@@ -21,7 +21,6 @@ const ChatroomPg = ({ match, socket }) => {
   const [messages, setMessages] = React.useState([]);
   const [userId, setUserId] = React.useState("");
   const [chatroomHeader, setChatroomHeader] = React.useState([]);
-  const [timestamp, setTimestamp] = React.useState("");
   const messageRef = React.useRef();
   const history = useHistory();
 
@@ -69,10 +68,8 @@ const ChatroomPg = ({ match, socket }) => {
     //receiving new message and combining it into an array=============================================================
     if (socket) {
       // ||| "newMessage" event originates from backend server.js
-      socket.on("newMessage", (message, received_time) => {
-        receivedMessage(message);
-        setTimestamp(moment().format("DoMMMYYYY[\n]h:mmA"));
-        //setTimestamp(moment().calendar());
+      socket.on("newMessage", (data) => {
+        receivedMessage(data);
       });
     }
   }, []);
@@ -162,7 +159,10 @@ const ChatroomPg = ({ match, socket }) => {
                 }
               >
                 {userId === message.userId && (
-                  <span className="MyTimestamp">{timestamp}</span>
+                  <span className="MyTimestamp">
+                    <span className="My_Date">{message.date}</span>
+                    <span className="My_Time">{message.time}</span>
+                  </span>
                 )}
                 <span
                   className={
@@ -174,7 +174,10 @@ const ChatroomPg = ({ match, socket }) => {
                 {message.message}
               </div>
               {userId !== message.userId && (
-                <span className="PartnerTimestamp">{timestamp}</span>
+                <div className="PartnerTimestamp">
+                  <span className="Partner_Date">{message.date}</span>
+                  <span className="Partner_Time">{message.time}</span>
+                </div>
               )}
             </div>
           );

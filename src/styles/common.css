@@ -99,12 +99,12 @@ button.nonChat.logOut:hover {
 }
 
 .chatroomList_container {
-  border: 1px solid black;
+  border: 1px solid gray;
   padding: 0px 20px 20px 20px;
   margin: 1rem auto 1rem auto;
   width: 70%;
-  height: 300px;
-  overflow-y: auto;
+  height: auto;
+  box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.8);
 }
 .chatroomName_Join {
   display: flex;
