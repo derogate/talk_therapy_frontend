@@ -26,6 +26,7 @@ const DashboardPg = (props) => {
       })
       .then((response) => {
         setChatrooms(response.data); //use res.json results from backend controllers/chatroomController.js
+        setTimeout(getChatrooms, 30000); //getchatrooms every 30 sec
       })
       .catch((err) => {
         setTimeout(getChatrooms, 3000);
@@ -70,7 +71,7 @@ const DashboardPg = (props) => {
     <div className="container-fluid">
       <Header loggedIn />
       <div className="container">
-        <div className="mb-5">
+        <div className="mb-3">
           <h1>
             Hello! Today is{" "}
             <span className="text-primary">{moment().format("dddd")}! </span>

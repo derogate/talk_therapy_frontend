@@ -121,6 +121,7 @@ button.nonChat.logOut:hover {
   border: 1px black solid;
   padding: 0.25rem 0.5rem;
   border-radius: 10px;
+  margin-left: 20px;
   font-weight: normal;
   font-size: 18px;
   transition: background 0.25s, color 0.3s, border 0.3s, box-shadow 0.4s,
