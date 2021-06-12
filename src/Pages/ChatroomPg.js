@@ -2,7 +2,6 @@ import React from "react";
 import { withRouter } from "react-router";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import moment from "moment";
 
 const ChatroomPg = ({ match, socket }) => {
   // ||| socket props passed above is imported and managed via backend server.js
