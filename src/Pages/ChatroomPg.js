@@ -28,6 +28,7 @@ const ChatroomPg = ({ match, socket }) => {
   //sending msg to chatroom =============================================================================================
   const sendMessage = (e) => {
     e.preventDefault(); //prevent default refreshing on submit
+
     if (socket) {
       if (messageRef.current.value.trim() === "") {
         messageRef.current.value = "";
@@ -79,6 +80,10 @@ const ChatroomPg = ({ match, socket }) => {
   function receivedMessage(message) {
     // messages to be rendered (only message changes state ==> message rendered, oldMsgs remains as it is - not stateful)
     setMessages((oldMsgs) => [...oldMsgs, message]);
+
+    // get the chat history with messages & scroll vertically based on the changed overflow height
+    var Chat_History = document.getElementsByClassName("Chat_History")[0];
+    Chat_History.scrollTop = Chat_History.scrollHeight;
   }
 
   //joinRoom and leaveRoom ===============================================================================================
