@@ -9,7 +9,7 @@ import talkingImg from "../assets/img/talking.svg";
 import trackImg from "../assets/img/track.svg";
 import Button from "../components/Button";
 
-const DashboardPg = (props) => {
+const DashboardPg = () => {
   const history = useHistory();
   const nameRef = React.createRef();
   const [chatrooms, setChatrooms] = React.useState([]);
