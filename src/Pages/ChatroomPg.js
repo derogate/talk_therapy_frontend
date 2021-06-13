@@ -23,6 +23,15 @@ const ChatroomPg = ({ match, socket }) => {
   const messageRef = React.useRef();
   const history = useHistory();
 
+  // prevent guest from accessing chatroom page
+  React.useEffect(() => {
+    const token = localStorage.getItem("CHAT_TOKEN");
+    if (!token) {
+      history.push("/login");
+    }
+    //eslint-disable-next-line
+  }, []);
+
   //sending msg to chatroom =============================================================================================
   const sendMessage = (e) => {
     e.preventDefault(); //prevent default refreshing on submit
