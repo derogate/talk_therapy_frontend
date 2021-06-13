@@ -10,6 +10,7 @@
     "axios": "^0.21.1",
     "bootstrap": "^5.0.1",
     "classnames": "^2.3.1",
+    "concurrently": "^6.2.0",
     "moment": "^2.29.1",
     "node-sass": "^6.0.0",
     "react": "^17.0.2",
@@ -22,8 +23,7 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "//": "<delete this tag and move this line to start> concurrently \"react-scripts start\" \"cd ../talk_therapy_backend && nodemon server.js\"",
-    "start": "react-scripts start",
+    "start": "concurrently \"react-scripts start\" \"cd ../talk_therapy_backend && nodemon server.js\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
