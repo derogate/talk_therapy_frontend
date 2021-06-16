@@ -1,3 +1,6 @@
 check package.json for the required dependencies and install the dependencies first before running
 
-### npm start
+### 1. clone (both frontend & [backend](https://github.com/derogate/talk_therapy_backend))
+### 2. cd to frontend folder & npm install
+### 3. cd to backend folder & npm install
+### 4. cd back to frontend folder & npm start
