@@ -1,4 +1,6 @@
-check package.json for the required dependencies and install the dependencies first before running
+Not yet deployed.
+
+Steps to run locally:
 
 ### 1. clone (both frontend & [backend](https://github.com/derogate/talk_therapy_backend))
 ### 2. cd to frontend folder & npm install
